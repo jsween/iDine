@@ -19,10 +19,15 @@ struct FavoritesView: View {
                     ForEach(favorites.items) { item in
                         Text(item.name)
                     }
+                    .onDelete(perform: deleteItem)
                 }
                 .navigationTitle("Favorites")
             }
         }
+    }
+    
+    func deleteItem(at offsets: IndexSet) {
+        favorites.items.remove(atOffsets: offsets)
     }
 }
 
