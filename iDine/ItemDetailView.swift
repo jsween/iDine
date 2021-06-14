@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ItemDetailView: View {
     let item: MenuItem
+    let impactMed = UIImpactFeedbackGenerator(style: .medium)
     @EnvironmentObject var order: Order
     var body: some View {
         VStack {
@@ -38,8 +39,14 @@ struct ItemDetailView: View {
                 .padding()
             Button("Order This") {
                 order.add(item: item)
+                impactMed.impactOccurred()
             }
             .font(.headline)
+            .padding()
+            .background(Color.blue)
+            .foregroundColor(Color.white)
+            .clipShape(Capsule())
+            .animation(.easeOut(duration: 0.5))
             Spacer()
         }
         .navigationTitle(item.name)
