@@ -9,10 +9,12 @@ import SwiftUI
 
 struct MainView: View {
     let order: Order = Order()
+    let favorites: Favorites = Favorites()
     var body: some View {
         TabView {
             ContentView()
                 .environmentObject(order)
+                .environmentObject(favorites)
                 .tabItem {
                         Label("Menu", systemImage: "list.dash")
                 }
@@ -21,6 +23,13 @@ struct MainView: View {
                 .tabItem {
                     Label("Order", systemImage: "square.and.pencil")
                 }
+            FavoritesView()
+                .environmentObject(order)
+                .environmentObject(favorites)
+                .tabItem {
+                    Label("Favorites", systemImage: "heart.fill")
+                }
+                
         }
     }
 }

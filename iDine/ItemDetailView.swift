@@ -11,6 +11,8 @@ struct ItemDetailView: View {
     let item: MenuItem
     let impactMed = UIImpactFeedbackGenerator(style: .medium)
     @EnvironmentObject var order: Order
+    @EnvironmentObject var favorites: Favorites
+    
     var body: some View {
         VStack {
             ZStack(alignment: .bottomTrailing) {
@@ -51,6 +53,13 @@ struct ItemDetailView: View {
         }
         .navigationTitle(item.name)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            Button(action: {
+                favorites.items.contains(item) ? favorites.remove(item: item) : favorites.add(item: item)
+            }) {
+                favorites.items.contains(item) ? Image(systemName: "heart.fill") : Image(systemName: "heart")
+            }
+        }
     }
 }
 
