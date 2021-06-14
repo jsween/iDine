@@ -9,9 +9,11 @@ import SwiftUI
 
 struct CheckoutView: View {
     @EnvironmentObject var order: Order
+    static let pickupTimes = ["ASAP", "Tonight", "Tomorrow Morning"]
     static let paymentTypes = ["Cash", "Credit Card", "iDine Points"]
     let tipAmounts = [10, 15, 18, 20, 25, 0]
     
+    @State private var pickupTime = "ASAP"
     @State private var paymentType = "Cash"
     @State private var addLoyaltyDetails = false
     @State private var loyaltyNumber = ""
@@ -31,6 +33,13 @@ struct CheckoutView: View {
     
     var body: some View {
         Form {
+            Section {
+                Picker("When do you want to pickup?", selection: $pickupTime) {
+                    ForEach(Self.pickupTimes, id: \.self) {
+                        Text($0)
+                    }
+                }
+            }
             Section {
                 Picker("How do you want to pay?", selection: $paymentType) {
                     ForEach(Self.paymentTypes, id: \.self) {
